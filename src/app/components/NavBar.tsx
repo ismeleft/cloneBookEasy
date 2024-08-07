@@ -31,43 +31,45 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
   active,
   onClick,
 }) => (
-  <div
+  <button
     className={`flex items-center gap-2.5 rounded-full px-4 py-2 hover:bg-white hover:bg-opacity-10 whitespace-pre cursor-pointer ${
       active ? "border border-white bg-white bg-opacity-10" : ""
     }`}
     onClick={onClick}
-    role="button"
     aria-pressed={active}
+    aria-label={label}
   >
     <FontAwesomeIcon icon={icon} className="w-4" />
     <span>{label}</span>
-  </div>
+  </button>
 );
 
 const Navbar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <div className="w-full h-40 bg-primary flex justify-center">
-      <div className="w-11/12 h-full max-w-screen-lg text-white mx-auto">
+    <div className="w-full h-40 mx-auto bg-primary text-white flex justify-center">
+      <div className="w-11/12 h-full max-w-screen-lg">
         <div className="flex h-1/2 items-center justify-between">
-          <div className="flex">
-            <span
-              className="text-xl font-medium cursor-pointer"
-              onClick={() => (window.location.href = "/")}
-            >
-              BOOKEASY
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="rounded-full h-[30px] w-[30px] border-none bg-[url('https://q-xx.bstatic.com/backend_static/common/flags/new/48-squared/tw.png')] bg-cover hover:cursor-pointer hover:border hover:border-gray-300" />
-            <button className="text-sm ml-2 px-4 py-2 border border-white bg-primary text-white hover:bg-white hover:bg-opacity-10">
-              使用 webpack 測試
+          <span
+            className="text-xl cursor-pointer"
+            onClick={() => (window.location.href = "/")}
+          >
+            BOOKEASY
+          </span>
+
+          <div className="flex items-center gap-4">
+            <button
+              aria-label="切換語言"
+              className="rounded-full h-[30px] w-[30px] border-none bg-[url('https://q-xx.bstatic.com/backend_static/common/flags/new/48-squared/tw.png')] bg-cover"
+            />
+            <button className="text-sm px-4 py-2 border border-white bg-primary text-white hover:bg-white hover:bg-opacity-10">
+              測試
             </button>
-            <button className="text-sm ml-2 px-4 py-2 bg-white text-primary">
+            <button className="text-sm px-4 py-2 bg-white text-primary hover:bg-gray-200">
               註冊
             </button>
-            <button className="text-sm ml-2 px-4 py-2 bg-white text-primary">
+            <button className="text-sm px-4 py-2 bg-white text-primary hover:bg-gray-200">
               登入
             </button>
           </div>
