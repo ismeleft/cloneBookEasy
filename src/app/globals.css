@@ -7,3 +7,37 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+h1 {
+  @apply text-h1;
+}
+
+@screen lg {
+  h1 {
+    @apply text-h1_lg;
+  }
+}
+
+h2 {
+  @apply text-h2;
+}
+
+@screen lg {
+  h2 {
+    @apply text-h2_lg;
+  }
+}
+
+h3 {
+  @apply text-h3;
+}
+
+@screen lg {
+  h3 {
+    @apply text-h3_lg;
+  }
+}
+
+p {
+  @apply text-p;
+}
