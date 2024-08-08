@@ -11,14 +11,15 @@ import {
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 const options = [
-  { icon: faBed, label: "住宿" },
-  { icon: faPlane, label: "航班" },
-  { icon: faCar, label: "租車" },
-  { icon: faToriiGate, label: "景點/活動" },
-  { icon: faTaxi, label: "機場計程車" },
+  { id: "stay", icon: faBed, label: "住宿" },
+  { id: "flights", icon: faPlane, label: "航班" },
+  { id: "car-rental", icon: faCar, label: "租車" },
+  { id: "attractions", icon: faToriiGate, label: "景點/活動" },
+  { id: "airport-taxi", icon: faTaxi, label: "機場計程車" },
 ];
 
 interface NavbarButtonProps {
+  id: string;
   icon: IconDefinition;
   label: string;
   active: boolean;
@@ -26,6 +27,7 @@ interface NavbarButtonProps {
 }
 
 const NavbarButton: React.FC<NavbarButtonProps> = ({
+  id,
   icon,
   label,
   active,
@@ -45,7 +47,7 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({
 );
 
 const Navbar: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [activeId, setActiveId] = useState<string | null>("stay");
 
   return (
     <div className="w-full h-40 mx-auto bg-primary text-white flex justify-center">
@@ -75,13 +77,14 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <div className="flex h-1/2 items-start gap-5">
-          {options.map((option, index) => (
+          {options.map((option) => (
             <NavbarButton
-              key={index}
+              key={option.id}
+              id={option.id}
               icon={option.icon}
               label={option.label}
-              active={index === activeIndex}
-              onClick={() => setActiveIndex(index)}
+              active={option.id === activeId}
+              onClick={() => setActiveId(option.id)}
             />
           ))}
         </div>
