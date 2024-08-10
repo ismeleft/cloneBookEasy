@@ -12,8 +12,18 @@ const config: Config = {
         sans: ['"Open Sans"', "sans-serif"],
       },
       colors: {
-        primary: "rgb(53, 164, 127)",
-        secondary: "rgb(255, 193, 7)",
+        blue: {
+          100: "#EBF8FF",
+          200: "#BEE3F8",
+          300: "#90CDF4",
+          400: "#63B3ED",
+          500: "#0F4C83",
+          600: "#3182CE",
+          700: "#2B6CB0",
+          800: "#2C5282",
+          900: "#2A4365",
+        },
+        primary: "#0F4C83", // 或者你可以直接引用 blue-500
       },
       fontSize: {
         h1: "36px",
