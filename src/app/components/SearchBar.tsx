@@ -9,6 +9,7 @@ import {
 import { DateRange, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import zhTW from "date-fns/locale/zh-TW";
 
 interface SelectionRange {
   startDate: Date;
@@ -70,6 +71,7 @@ const SearchBar = () => {
           <FontAwesomeIcon
             icon={icons.calendar}
             className="text-gray-400 w-4 h-4 ml-4 mr-2"
+            onClick={() => setIsOpen(!isOpen)}
           />
           <input
             type="text"
@@ -83,9 +85,12 @@ const SearchBar = () => {
         {isOpen && (
           <div className="absolute z-10">
             <DateRange
+              editableDateInputs={true}
               ranges={[selectionRange]}
               onChange={handleSelect}
               moveRangeOnFirstSelection={false}
+              minDate={new Date()}
+              locale={zhTW}
             />
           </div>
         )}
