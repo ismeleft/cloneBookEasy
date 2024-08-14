@@ -23,7 +23,6 @@ const config: Config = {
           800: "#2C5282",
           900: "#2A4365",
         },
-        primary: "#0F4C83", // 或者你可以直接引用 blue-500
       },
       fontSize: {
         h1: "36px",

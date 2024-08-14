@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
   const [activeId, setActiveId] = useState<string | null>("stay");
 
   return (
-    <div className="w-full h-40 mx-auto bg-primary text-white flex justify-center">
+    <div className="w-full h-40 mx-auto bg-blue-500 text-white flex justify-center">
       <div className="w-11/12 h-full max-w-screen-lg">
         <div className="flex h-1/2 items-center justify-between">
           <span
@@ -65,13 +65,13 @@ const Navbar: React.FC = () => {
               aria-label="切換語言"
               className="rounded-full h-[30px] w-[30px] border-none bg-[url('https://q-xx.bstatic.com/backend_static/common/flags/new/48-squared/tw.png')] bg-cover"
             />
-            <button className="text-sm px-4 py-2 border border-white bg-primary text-white hover:bg-white hover:bg-opacity-10">
+            <button className="text-sm px-4 py-2 border border-white bg-blue-500 text-white hover:bg-blue-700">
               測試
             </button>
-            <button className="text-sm px-4 py-2 bg-white text-primary hover:bg-gray-200">
+            <button className="text-sm px-4 py-2 bg-white text-blue-500 hover:bg-gray-200">
               註冊
             </button>
-            <button className="text-sm px-4 py-2 bg-white text-primary hover:bg-gray-200">
+            <button className="text-sm px-4 py-2 bg-white text-blue-500 hover:bg-gray-200">
               登入
             </button>
           </div>
