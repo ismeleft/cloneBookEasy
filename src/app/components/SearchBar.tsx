@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -38,9 +38,34 @@ const SearchBar = () => {
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
 
+  const datePickerRef = useRef<HTMLDivElement>(null);
+  const guestsRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setGuests(`${adults} 位成人 · ${children} 位小孩 · ${rooms} 間房`);
   }, [adults, children, rooms]);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      datePickerRef.current &&
+      !datePickerRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+    if (
+      guestsRef.current &&
+      !guestsRef.current.contains(event.target as Node)
+    ) {
+      setOpenGuests(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   const handleSelect = (ranges: RangeKeyDict) => {
     const { startDate, endDate } = ranges.selection;
@@ -94,7 +119,7 @@ const SearchBar = () => {
         />
       </div>
 
-      <div className="flex-1 min-w-[200px] relative">
+      <div className="flex-1 min-w-[200px] relative" ref={datePickerRef}>
         <div className="flex items-center border border-gray-300 rounded-md">
           <FontAwesomeIcon
             icon={icons.calendar}
@@ -135,7 +160,10 @@ const SearchBar = () => {
         <div className="pl-2 pr-3 py-2 text-gray-400 truncate">{guests}</div>
       </div>
       {openGuests && (
-        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-20 p-4 w-64">
+        <div
+          className="absolute top-full right-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-20 p-4 w-64"
+          ref={guestsRef}
+        >
           {["adults", "children", "rooms"].map((type, index) => (
             <div key={type}>
               <div
