@@ -10,6 +10,7 @@ import { DateRange, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import zhTW from "date-fns/locale/zh-TW";
+import DOMPurify from "dompurify";
 
 interface SelectionRange {
   startDate: Date;
@@ -102,6 +103,11 @@ const SearchBar = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitizedInput = DOMPurify.sanitize(e.target.value);
+    setDestination(sanitizedInput);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 flex items-center gap-4 border border-gray-300 absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 w-full max-w-screen-lg">
       <div className="flex-1 flex items-center border border-gray-300 rounded-md">
@@ -113,7 +119,7 @@ const SearchBar = () => {
           type="text"
           id="destination"
           value={destination}
-          onChange={(e) => setDestination(e.target.value)}
+          onChange={handleInputChange}
           className="w-full pl-2 pr-3 py-2 focus:outline-none text-gray-500 rounded-md"
           placeholder="你要去哪裡？"
         />
