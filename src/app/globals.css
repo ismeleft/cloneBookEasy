@@ -9,32 +9,32 @@
 }
 
 h1 {
-  @apply text-h1;
+  @apply text-h1 font-bold;
 }
 
 @screen lg {
   h1 {
-    @apply text-h1_lg;
+    @apply text-h1_lg font-bold;
   }
 }
 
 h2 {
-  @apply text-h2;
+  @apply text-h2 font-bold;
 }
 
 @screen lg {
   h2 {
-    @apply text-h2_lg;
+    @apply text-h2_lg font-bold;
   }
 }
 
 h3 {
-  @apply text-h3;
+  @apply text-h3 font-bold;
 }
 
 @screen lg {
   h3 {
-    @apply text-h3_lg;
+    @apply text-h3_lg font-bold;
   }
 }
 
