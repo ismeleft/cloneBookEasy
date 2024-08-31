@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
-    <header className="bg-primary text-white py-6 px-4 relative">
+    <header className="bg-blue-500 text-white py-6 px-4 relative">
       <div className="max-w-screen-lg mx-auto">
         <h1 className="mb-2">尋找下趟住宿</h1>
         <p className="mb-10">
