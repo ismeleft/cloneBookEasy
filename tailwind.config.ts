@@ -33,6 +33,12 @@ const config: Config = {
         h3_lg: "28px",
         p: "16px",
       },
+      boxShadow: {
+        "3xl": "0px 0px 15px #0F4C83",
+      },
+      backgroundImage: {
+        map: "url('https://cf.bstatic.com/psb/capla/static/media/map-entry-point.6b01012a.png')",
+      },
       screens: {
         xs: "480px",
         sm: "640px",
