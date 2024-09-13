@@ -110,6 +110,15 @@ const SearchBar = () => {
     setDestination(sanitizedInput);
   };
 
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams({
+      destination,
+      dateRange: dateRangeText,
+      guests: `${adults},${children},${rooms}`,
+    });
+    router.push(`/hotelList?${searchParams.toString()}`);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 flex items-center gap-4 border border-gray-300 absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 w-full max-w-screen-lg">
       <div className="flex-1 flex items-center border border-gray-300 rounded-md">
@@ -227,7 +236,7 @@ const SearchBar = () => {
       )}
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition-colors duration-300 min-w-[120px]"
-        onClick={() => router.push("/hotelList")}
+        onClick={handleSearch}
       >
         搜尋
       </button>
