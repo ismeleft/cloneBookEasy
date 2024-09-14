@@ -11,7 +11,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import zhTW from "date-fns/locale/zh-TW";
 import DOMPurify from "dompurify";
-
+import { useRouter } from "next/navigation";
 interface SelectionRange {
   startDate: Date;
   endDate: Date;
@@ -41,6 +41,8 @@ const SearchBar = () => {
 
   const datePickerRef = useRef<HTMLDivElement>(null);
   const guestsRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     setGuests(`${adults} 位成人 · ${children} 位小孩 · ${rooms} 間房`);
@@ -106,6 +108,15 @@ const SearchBar = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const sanitizedInput = DOMPurify.sanitize(e.target.value);
     setDestination(sanitizedInput);
+  };
+
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams({
+      destination,
+      dateRange: dateRangeText,
+      guests: `${adults},${children},${rooms}`,
+    });
+    router.push(`/hotelList?${searchParams.toString()}`);
   };
 
   return (
@@ -225,7 +236,7 @@ const SearchBar = () => {
       )}
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition-colors duration-300 min-w-[120px]"
-        onClick={() => console.log({ destination, selectionRange, guests })}
+        onClick={handleSearch}
       >
         搜尋
       </button>
