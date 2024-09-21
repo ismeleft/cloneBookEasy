@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface SearchItemProps {
   active?: string;
@@ -58,9 +59,11 @@ const SearchItem: React.FC<SearchItemProps> = ({ active }) => {
               <span>五晚、1位</span>
               <span className="text-xl font-medium">TWD 4534</span>
               <span className="text-gray-500">含稅費與其他費用</span>
-              <button className="mt-2 w-full text-white text-lg py-2 px-4 bg-blue-500 rounded hover:bg-blue-400 transition-colors duration-300">
-                查看客房供應情況
-              </button>
+              <Link href="/hotels/1" passHref>
+                <button className="mt-2 w-full text-white text-lg py-2 px-4 bg-blue-500 rounded hover:bg-blue-400 transition-colors duration-300">
+                  查看客房供應情況
+                </button>
+              </Link>
             </div>
           </div>
         </div>
