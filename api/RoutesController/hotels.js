@@ -13,11 +13,18 @@ const createHotel = async (req, res, next) => {
 const getHotel = async (req, res, next) => {
   const id = req.params.id;
   try {
-    const getHotel = await Hotel.findById(id);
-    if (!getHotel) {
-      return next(errorMessage(404, "找不到指定飯店的資料", null));
+    let hotels;
+    if (id) {
+      // 如果有提供 id，查找指定的飯店
+      hotels = await Hotel.findById(id);
+      if (!hotels) {
+        return next(errorMessage(404, "找不到指定飯店的資料", null));
+      }
+    } else {
+      // 如果沒提供 id，返回所有飯店資料
+      hotels = await Hotel.find();
     }
-    res.status(200).json(getHotel);
+    res.status(200).json(hotels);
   } catch (error) {
     next(errorMessage(400, "無效的飯店ID格式", error));
   }

@@ -1,5 +1,4 @@
 import express from "express";
-import Hotel from "../models/Hotel.js";
 import {
   createHotel,
   getHotel,
@@ -13,7 +12,7 @@ const router = express.Router();
 router.post("/", createHotel);
 
 // 找尋第一筆資料
-router.get("/find/:id", getHotel);
+router.get("/find/:id?", getHotel); // id 參數變成可選
 
 // 修改第一筆資料
 router.put("/:id", updatedHotel);
