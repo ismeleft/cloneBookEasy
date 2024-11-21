@@ -10,25 +10,31 @@ const createHotel = async (req, res, next) => {
     next(errorMessage(400, "無法創建飯店資料，請檢查輸入格式是否正確", error));
   }
 };
+
+// 查找特定飯店資料
 const getHotel = async (req, res, next) => {
   const id = req.params.id;
   try {
-    let hotels;
-    if (id) {
-      // 如果有提供 id，查找指定的飯店
-      hotels = await Hotel.findById(id);
-      if (!hotels) {
-        return next(errorMessage(404, "找不到指定飯店的資料", null));
-      }
-    } else {
-      // 如果沒提供 id，返回所有飯店資料
-      hotels = await Hotel.find();
+    const hotel = await Hotel.findById(id);
+    if (!hotel) {
+      return next(errorMessage(404, "找不到指定飯店的資料", null));
     }
-    res.status(200).json(hotels);
+    res.status(200).json(hotel);
   } catch (error) {
     next(errorMessage(400, "無效的飯店ID格式", error));
   }
 };
+
+// 取得所有飯店資料
+const getAllHotels = async (req, res, next) => {
+  try {
+    const hotels = await Hotel.find();
+    res.status(200).json(hotels);
+  } catch (error) {
+    next(errorMessage(400, "取得飯店資料失敗", error));
+  }
+};
+
 const updatedHotel = async (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
@@ -52,6 +58,7 @@ const updatedHotel = async (req, res, next) => {
     );
   }
 };
+
 const deleteHotel = async (req, res, next) => {
   const id = req.params.id;
   try {
@@ -65,4 +72,4 @@ const deleteHotel = async (req, res, next) => {
   }
 };
 
-export { createHotel, getHotel, updatedHotel, deleteHotel };
+export { createHotel, getHotel, getAllHotels, updatedHotel, deleteHotel };
