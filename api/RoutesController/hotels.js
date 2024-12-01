@@ -45,7 +45,7 @@ const updatedHotel = async (req, res, next) => {
       { new: true }
     );
     if (!updatedHotel) {
-      return next(errorMessage(404, "找不到要更新的飯點資料", null));
+      return next(errorMessage(404, "找不到要更新的飯店資料", null));
     }
     res.status(200).json(updatedHotel);
   } catch (error) {
