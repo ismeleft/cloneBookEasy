@@ -1,9 +1,19 @@
 import express from "express";
+import {
+  getUser,
+  getAllUsers,
+  updateUser,
+  deleteUser,
+} from "../RoutesController/user.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("這邊是 UsersApi End points 連接點");
-});
+router.put("/:id", updateUser);
+
+router.delete("/:id", deleteUser);
+
+router.get("/:id", getUser);
+
+router.get("/", getAllUsers);
 
 export default router;
