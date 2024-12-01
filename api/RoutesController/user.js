@@ -1,19 +1,23 @@
 import User from "../models/User.js";
 import { errorMessage } from "../errorMessage.js";
+import { validateObjectId } from "../middlewares/validateObjectId.js";
 
 // 查找特定會員資料
-const getUser = async (req, res, next) => {
-  const id = req.params.id;
-  try {
-    const user = await User.findById(id);
-    if (!user) {
-      return next(errorMessage(404, "找不到指定會員的資料", null));
+const getUser = [
+  validateObjectId(["id"]),
+  async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const user = await User.findById(id);
+      if (!user) {
+        return next(errorMessage(404, "找不到指定會員的資料", null));
+      }
+      res.status(200).json(user);
+    } catch (error) {
+      next(errorMessage(400, "無效的會員ID格式", error));
     }
-    res.status(200).json(user);
-  } catch (error) {
-    next(errorMessage(400, "無效的會員ID格式", error));
-  }
-};
+  },
+];
 
 // 取得所有會員資料
 const getAllUsers = async (req, res, next) => {
@@ -25,41 +29,41 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const updateUser = async (req, res, next) => {
-  const id = req.params.id;
-  const body = req.body;
-  try {
-    const updateUser = await User.findByIdAndUpdate(
-      id,
-      { $set: body },
-      { new: true }
-    );
-    if (!updateUser) {
-      return next(errorMessage(404, "找不到要更新的會員資料", null));
+const updateUser = [
+  validateObjectId(["id"]),
+  async (req, res, next) => {
+    const id = req.params.id;
+    const body = req.body;
+    try {
+      const updateUser = await User.findByIdAndUpdate(
+        id,
+        { $set: body },
+        { new: true }
+      );
+      if (!updateUser) {
+        return next(errorMessage(404, "找不到要更新的會員資料", null));
+      }
+      res.status(200).json(updateUser);
+    } catch (error) {
+      next(errorMessage(400, "修改失敗，請確認欄位輸入格式是否正確", error));
     }
-    res.status(200).json(updateUser);
-  } catch (error) {
-    next(
-      errorMessage(
-        400,
-        "修改失敗，請確認是否有其id與是否欄位輸入格式正確",
-        error
-      )
-    );
-  }
-};
+  },
+];
 
-const deleteUser = async (req, res, next) => {
-  const id = req.params.id;
-  try {
-    const result = await User.findByIdAndDelete(id);
-    if (!result) {
-      return next(errorMessage(404, "找不到要刪除的會員資料", null));
+const deleteUser = [
+  validateObjectId(["id"]),
+  async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const result = await User.findByIdAndDelete(id);
+      if (!result) {
+        return next(errorMessage(404, "找不到要刪除的會員資料", null));
+      }
+      res.status(200).json("用戶刪除成功");
+    } catch (error) {
+      next(errorMessage(400, "刪除失敗，請確認是否有其id", error));
     }
-    res.status(200).json("用戶刪除成功");
-  } catch (error) {
-    next(errorMessage(400, "刪除失敗，請確認是否有其id", error));
-  }
-};
+  },
+];
 
 export { getUser, getAllUsers, updateUser, deleteUser };
