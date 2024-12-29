@@ -59,7 +59,7 @@ const deleteUser = [
       if (!result) {
         return next(errorMessage(404, "找不到要刪除的會員資料", null));
       }
-      res.status(200).json("用戶刪除成功");
+      res.status(200).json("會員刪除成功");
     } catch (error) {
       next(errorMessage(400, "刪除失敗，請確認是否有其id", error));
     }

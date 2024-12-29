@@ -5,15 +5,20 @@ import {
   updateUser,
   deleteUser,
 } from "../RoutesController/user.js";
+import { verifyUser, verifyAdmin } from "../JWT_Token.js";
 
 const router = express.Router();
 
-router.put("/:id", updateUser);
+// 更新使用者 (需驗證為本人 或 管理員)
+router.put("/:id", verifyUser, updateUser);
 
-router.delete("/:id", deleteUser);
+// 刪除使用者 (需驗證為本人 或 管理員)
+router.delete("/:id", verifyUser, deleteUser);
 
-router.get("/:id", getUser);
+// 讀取單一使用者資料 (需驗證為本人 或 管理員)
+router.get("/:id", verifyUser, getUser);
 
-router.get("/", getAllUsers);
+// 讀取所有使用者資料 (僅限管理員)
+router.get("/", verifyAdmin, getAllUsers);
 
 export default router;
