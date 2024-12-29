@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import hotelsApiRoute from "./ApiRoutes/hotels.js";
 import roomsApiRoute from "./ApiRoutes/rooms.js";
 import usersApiRoute from "./ApiRoutes/users.js";
@@ -33,7 +34,9 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.use(express.json()); // Allows req.body to be parsed as JSON
+// Middleware setup
+app.use(cookieParser()); // Parse cookies in incoming requests
+app.use(express.json()); // Parse JSON bodies
 
 // Middlewares for handling specific routes
 app.use("/api/v1/hotels", hotelsApiRoute);
