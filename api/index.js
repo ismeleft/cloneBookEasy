@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import hotelsApiRoute from "./ApiRoutes/hotels.js";
 import roomsApiRoute from "./ApiRoutes/rooms.js";
 import usersApiRoute from "./ApiRoutes/users.js";
@@ -35,6 +36,19 @@ app.listen(port, () => {
 });
 
 // Middleware setup
+
+// 配置 CORS
+app.use(
+  cors({
+    origin: [
+      "https://book-easy-fe.vercel.app",
+      "http://localhost:3000", // 開發環境用
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
+
 app.use(cookieParser()); // Parse cookies in incoming requests
 app.use(express.json()); // Parse JSON bodies
 
