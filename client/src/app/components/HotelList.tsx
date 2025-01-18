@@ -24,9 +24,9 @@ const icons = {
 const HotelList = () => {
   const searchParams = useSearchParams();
 
-  const destination = searchParams.get("destination") || "";
-  const dateRange = searchParams.get("dateRange") || "";
-  const guests = searchParams.get("guests") || "";
+  const destination = searchParams?.get("destination") || "";
+  const dateRange = searchParams?.get("dateRange") || "";
+  const guests = searchParams?.get("guests") || "";
 
   const [adults, children, rooms] = guests.split(",").map(Number);
 
