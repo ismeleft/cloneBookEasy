@@ -1,3 +1,5 @@
+import clientPromise from "./lib/mongodb";
+
 export const CategoriesType = [
   {
     id: 0,
@@ -214,3 +216,17 @@ export const PopularHotelsData = [
     img: "https://cf.bstatic.com/xdata/images/hotel/max500/100210804.jpg?k=b4266521a7d7dd6165b0c37f1d18382eeab462ae18efbe779bcfb48b460c06b6&o=",
   },
 ];
+
+export async function getData() {
+  try {
+    const client = await clientPromise;
+    const db = client.db("your-database-name");
+    const collection = db.collection("your-collection");
+
+    const data = await collection.find({}).toArray();
+    return data;
+  } catch (error) {
+    console.error("獲取數據時出錯：", error);
+    throw error;
+  }
+}

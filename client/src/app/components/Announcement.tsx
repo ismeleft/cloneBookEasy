@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { getData } from "../data";
 
 interface AnnouncementProps {
   type: "Upper half" | "Lower half";
@@ -96,11 +97,18 @@ const LowerHalfContent: React.FC = () => (
   </div>
 );
 
-const Announcement: React.FC<AnnouncementProps> = ({ type }) => {
+const Announcement: React.FC<AnnouncementProps> = async ({ type }) => {
+  const data = await getData();
+
   return (
     <div className="mt-12 max-w-screen-lg mx-auto">
       <div className="px-5">
         {type === "Upper half" ? <UpperHalfContent /> : <LowerHalfContent />}
+      </div>
+      <div>
+        {data.map((item) => (
+          <div key={item._id}>{/* 顯示您的數據 */}</div>
+        ))}
       </div>
     </div>
   );
